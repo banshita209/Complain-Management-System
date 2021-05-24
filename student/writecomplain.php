@@ -5,7 +5,7 @@
                     <section class="tm-content tm-contact">
                         <h2 class="mb-4 tm-content-title">Write My Complain</h2>
                         <p class="mb-85">Don't worry your identity is hidden</p>
-                        <form id="contact-form" action="" method="POST">
+                        <form id="contact-form" action="controller.php" method="POST">
                             <div class="form-group mb-4">
                                 <input type="text" name="name" class="form-control" placeholder="Subject" required="" />
                             </div>
@@ -16,7 +16,7 @@
                                 <textarea rows="6" name="message" class="form-control" placeholder="Write your complain here ..." required=""></textarea>
                             </div>
                             <div class="text-right">
-                                <button type="submit" class="btn btn-big btn-primary">Send It</button>
+                                <button type="submit" class="btn btn-big btn-primary" name="action" value="submit complain">Send It</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button type="Reset" class="btn btn-big btn-primary">Reset</button>
                             </div>
