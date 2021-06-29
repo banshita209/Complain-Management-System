@@ -53,12 +53,13 @@
 			$flag =0;
 			if ($action == "register") {
 				
-				$sql = "INSERT INTO student (enroll, password, name, sem, dept, contact, email, counter, flag) VALUES ('".$enroll."', '".$password."', '".$name."', '".$sem."', '".$dept."', '".$contact."', '".$email."', '".$counter."', '".$flag."')";
+				$sql = "INSERT INTO student ('enroll', 'password', 'name', 'sem', 'dept', 'contact', 'email', 'counter', 'flag') VALUES ('".$enroll."', '".$password."', '".$name."', '".$sem."', '".$dept."', '".$contact."', '".$email."', '".$counter."', '".$flag."')";
 
 				if (mysqli_query($conn, $sql)) {
 					$id = mysqli_insert_id($conn);
 					echo "New record created successfully. Last inserted ID is: " . $id;
 					$temp_name = generateTempName($id);
+				
 				} else {
 					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
