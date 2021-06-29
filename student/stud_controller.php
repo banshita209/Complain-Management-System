@@ -39,33 +39,51 @@
 	            	echo "0 results";
 	        	}
 		}
+		//END OF FUNCTION
 
 		$action=$_REQUEST["action"];
 		if ($action == "register" || $action == "update") {
-			$enroll=$_POST["enroll"];
-			$password = $_POST["password"];
-			$name = $_POST["name"];
-			$sem = $_POST["sem"];
-			$dept = $_POST["dept"];
-			$contact = $_POST["contact"];
-			$email = $_POST["email"];
+			$enroll=trim($_POST["enroll"]);
+			$password = trim($_POST["password"]);
+			$name = trim($_POST["name"]);
+			$sem = trim($_POST["sem"]);
+			$dept = trim($_POST["dept"]);
+			$contact = trim($_POST["contact"]);
+			$email = trim($_POST["email"]);
 			$counter = 0;
 			$flag =0;
-			if ($action == "register") {
-				
+			if ($action == "register") {				
 				$sql = "INSERT INTO student ('enroll', 'password', 'name', 'sem', 'dept', 'contact', 'email', 'counter', 'flag') VALUES ('".$enroll."', '".$password."', '".$name."', '".$sem."', '".$dept."', '".$contact."', '".$email."', '".$counter."', '".$flag."')";
-
 				if (mysqli_query($conn, $sql)) {
 					$id = mysqli_insert_id($conn);
 					echo "New record created successfully. Last inserted ID is: " . $id;
 					$temp_name = generateTempName($id);
-				
 				} else {
 					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
-
-		
+		elseif($action == "login"){
+			$sql = "Select * from Student where email='".trim($_REQUEST["email"])."'";
+			$result = mysqli_query($conn, $sql);
+			if(! $result){
+				die('Could not get data: ' . mysqli_error($conn));
+			}else{
+				while($rows = mysqli_fetch_array($result)){
+					$password = $rows['password'];
+					echo "password =".$password;
+					if($password == $_REQUEST['password']){
+						session_start();
+						$_SESSION['userType']="Student";
+						$_SESSION['enroll']=$rows['enroll'];
+						$_SESSION['temp']=$rows['temp_name'];
+						echo "login successful";
+						header("location:home.php");
+					}
+					else{
+						echo "login failed";
+					}
+				}
+			}
+		}	
 	}
-?>

@@ -14,6 +14,14 @@
 </head>
 
 <body>
+<?php 
+session_start();
+$enroll = $_SESSION['enroll'];
+if(! $enroll || $enroll == ""){
+    echo "error";
+    header("location:error.php");
+}
+?>
     <div class="tm-container">        
         <div>
             <div class="tm-row pt-4">
